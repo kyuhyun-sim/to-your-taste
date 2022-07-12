@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <title>To Your Taste : Recommended List</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+
+    <!-- BoxStyle -->
+<!--    <link rel="stylesheet" href="css/test.css">-->
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+    <style>
+        .scene {
+            width: 800px;
+            height: 600px;
+            perspective: 2000px;
+        }
+
+        .box {
+            position: relative;
+            transform-style: preserve-3d;
+            transform: translateZ( 0px) rotate3d(0, 0, 0, 0);
+            animation: rotation 5s;
+        }
+
+        .box__face {
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: black;
+            font-size: 1.5em;
+            font-family: monospace;
+            opacity: 0;
+            background: #fcfcfc;
+        }
+
+        .box__face--front {
+            display: block;
+            opacity: 1;
+            width: 800px;
+            height: 600px;
+            justify-content: left;
+            align-items: flex-start;
+            background: rgba(252,252,252, 1);
+            transform: rotateY(0deg) translateZ(50px);
+        }
+
+        .box__face--back {
+            opacity: 1;
+            width: 800px;
+            height: 600px;
+            transform: rotateY(180deg) translateZ(50px);
+        }
+
+        .box__face--right {
+            opacity: 1;
+            left: 600px;
+            width: 100px;
+            height: 600px;
+
+            transform: rotateY(90deg) translateZ(150px);
+        }
+
+        .box__face--left {
+            opacity: 1;
+            left: 100px;
+            width: 100px;
+            height: 600px;
+
+            transform: rotateY(-90deg) translateZ(150px);
+        }
+
+        .box__face--top {
+            top: 50px;
+            opacity: 1;
+            width: 800px;
+            height: 100px;
+
+            transform: rotateX(90deg) translateZ(100px);
+        }
+
+        .box__face--bottom {
+            opacity: 1;
+            top: 450px;
+            width: 800px;
+            height: 100px;
+            transform: rotateX(-90deg) translateZ(100px);
+        }
+
+        html {
+            height: 100%;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            margin-bottom: 30px;
+        }
+
+        @keyframes rotation {
+            100% {
+                transform: translateZ(0px) rotate3d(0, 1, 0, 360deg);
+            }
+        }
+
+    </style>
+    <script>
+        $(document).ready(function () {
+            show_playList();
+        });
+
+        function show_playList() {
+            $('#').empty()
+            $.ajax({
+                type: "GET",
+                url: "/toyproject",
+                data: {},
+                success: function (response) {
+
+                }
+            })
+        }
+    </script>
+</head>
+<body>
+<div class="scene">
+  <div class="box">
+    <div class="box__face box__face--front">
+        <div id="tag_list">
+            <p>선택된 태그</p>
+        </div>
+        <div id="recommendList">
+            <table>
+                <th>완전 편안한 플레이 리스트</th>
+                <tr>
+                    <td>엄청 편한 노래1 </td>
+                    <td>엄청 편한 노래2 </td>
+                    <td>엄청 편한 노래3 </td>
+                    <td>엄청 편한 노래4 </td>
+                    <td>엄청 편한 노래5 </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="box__face box__face--back">back</div>
+    <div class="box__face box__face--right">right</div>
+    <div class="box__face box__face--left">left</div>
+    <div class="box__face box__face--top">top</div>
+    <div class="box__face box__face--bottom">bottom</div>
+  </div>
+</div>
+</body>
+</html>

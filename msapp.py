@@ -1,35 +1,40 @@
-from flask import Flask, render_template, request, jsonify, redirect, url_for
-from pymongo import MongoClient
-import requests
-import jwt   ###로그인페이지에 추가된 패키지: pyjwt
+import jwt
 import datetime
 import hashlib
+from flask import Flask, render_template, jsonify, request, redirect, url_for
+from datetime import datetime, timedelta
 
 app = Flask(__name__)
+app.config["TEMPLATES_AUTO_RELOAD"] = True
 
-client = MongoClient('mongodb+srv://test:sparta@cluster0.ehdakrl.mongodb.net/?retryWrites=true&w=majority')
-db = client.dbsparta
+SECRET_KEY = 'SPARTA'
 
-##### 토큰(로그인 확인)후 없으면 로그인 페이지, 있으면 메인 페이지로
+from pymongo import MongoClient
+
+client = MongoClient("mongodb+srv://test:sparta@cluster0.bpwj4ks.mongodb.net/Cluster0?retryWrites=true&w=majority")
+db = client.oneweek
+
+
 @app.route('/')
 def home():
     token_receive = request.cookies.get('mytoken')
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        user_info = db.users.find_one({"username": payload["id"]})
+        return render_template('index.html', user_info=user_info)
 
-        return render_template('index.html')
     except jwt.ExpiredSignatureError:
         return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
     except jwt.exceptions.DecodeError:
         return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
 
-#####로그인(로그인) 페이지 렌더
+
 @app.route('/login')
 def login():
     msg = request.args.get("msg")
     return render_template('login.html', msg=msg)
 
-#####로그인확인 후 토큰 발급
+
 @app.route('/sign_in', methods=['POST'])
 def sign_in():
     # 로그인
@@ -52,70 +57,34 @@ def sign_in():
         return jsonify({'result': 'fail', 'msg': '아이디/비밀번호가 일치하지 않습니다.'})
 
 
-#####회원가입 페이지 렌더
 @app.route('/sign_up/save', methods=['POST'])
 def sign_up():
     username_receive = request.form['username_give']
     password_receive = request.form['password_give']
+    profile_name_receive = request.form['profile_name_give']
     password_hash = hashlib.sha256(password_receive.encode('utf-8')).hexdigest()
     doc = {
-        "username": username_receive,  # 아이디
-        "password": password_hash,  # 비밀번호
-        "profile_name": username_receive,  # 프로필 이름 기본값은 아이디
+        "username": username_receive,                               # 아이디
+        "password": password_hash,                                  # 비밀번호
+        "profile_name": profile_name_receive,                       # 프로필 이름
     }
     db.users.insert_one(doc)
     return jsonify({'result': 'success'})
 
-##### 중복확인 api
+
 @app.route('/sign_up/check_dup', methods=['POST'])
 def check_dup():
     username_receive = request.form['username_give']
     exists = bool(db.users.find_one({"username": username_receive}))
     return jsonify({'result': 'success', 'exists': exists})
 
-
-# @app.route('/signup')
-# def signup():
-#
-#     return render_template("signup.html")
-
-#####추천 리스트 페이지 렌더
-@app.route('/recommendList')
-def recommendList():
-
-    return render_template("recommendList.html")
-
-#####마이페이지 렌더
-@app.route('/mypage')
-def mypage():
-    return render_template("mypage.html")
-
-
-
-
-
-
-
-#####로그인(인덱스) 페이지 API
-@app.route('/api/login', methods=['POST'])
-def login():
-
-    return jsonify("로그인 완료")
-
-#####프로필 API
-@app.route('/api/profile', methods=['POST'])
-def profile():
-    return jsonify({"프로필 편집 완료"})
-
-#####마이페이지 API
-@app.route('/api/mypage', methods=['GET'])
-def mypage_get():
-    return jsonify({"프로필, 개인 플레이 리스트 조회"})
-
-
-
+@app.route('/sign_up/check_dup2', methods=['POST'])
+def check_dup2():
+    profile_name_receive = request.form['profile_name_give']
+    exists = bool(db.users.find_one({"profile_name": profile_name_receive}))
+    return jsonify({'result': 'success', 'exists': exists})
 
 
 
 if __name__ == '__main__':
-    app.run('0.0.0.0', port=5000, debug=True)
+    app.run('0.0.0.0', port=5100, debug=True)

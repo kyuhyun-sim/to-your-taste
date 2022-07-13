@@ -34,7 +34,7 @@
             position: relative;
             transform-style: preserve-3d;
             transform: translateZ( 0px) rotate3d(0, 0, 0, 0);
-            animation: rotation 5s;
+            animation: rotation 3s;
         }
 
         .box__face {
@@ -43,14 +43,14 @@
             justify-content: center;
             align-items: center;
             color: black;
-            font-size: 1.5em;
+            font-size: 1em;
             font-family: monospace;
             opacity: 0;
             background: #fcfcfc;
         }
 
         .box__face--front {
-            display: block;
+            display: flex;
             opacity: 1;
             width: 800px;
             height: 600px;
@@ -125,6 +125,36 @@
                 transform: translateZ(0px) rotate3d(0, 1, 0, 360deg);
             }
         }
+        /*#recommendList ul {*/
+        /*    display: flex;*/
+        /*}*/
+        #recommendList ul {
+            display: flex;
+            flex-direction: column;
+        }
+        #recommendList ul li {
+            display: block;
+        }
+        #tag_list {
+            position: absolute;
+            top: 100px;
+            left: 100px;
+
+            width: 200px;
+            height: 400px;
+        }
+        #recommendList {
+            position: absolute;
+            overflow: hidden;
+            top: 100px;
+            right: 100px;
+            width: 400px;
+            height: 400px;
+        }
+        .test{
+             cursor: pointer;
+
+        }
 
     </style>
     <script>
@@ -133,15 +163,17 @@
         });
 
         function show_playList() {
-            $('#').empty()
             $.ajax({
                 type: "GET",
-                url: "/toyproject",
+                url: "/api/recommendList",
                 data: {},
                 success: function (response) {
 
                 }
             })
+        }
+        function test(){
+            $("#test").load(window.location.href + "#test");
         }
     </script>
 </head>
@@ -153,16 +185,34 @@
             <p>선택된 태그</p>
         </div>
         <div id="recommendList">
-            <table>
-                <th>완전 편안한 플레이 리스트</th>
-                <tr>
-                    <td>엄청 편한 노래1 </td>
-                    <td>엄청 편한 노래2 </td>
-                    <td>엄청 편한 노래3 </td>
-                    <td>엄청 편한 노래4 </td>
-                    <td>엄청 편한 노래5 </td>
-                </tr>
-            </table>
+            <ul id="playList-1">
+                <h5>완전 편안한 플레이 리스트</h5>
+                    <li>엄청 편한 노래1 </li>
+                    <li>엄청 편한 노래2 </li>
+                    <li>엄청 편한 노래3 </li>
+                    <li>엄청 편한 노래4 </li>
+                    <li>엄청 편한 노래5 </li>
+                <h6 id="test" onclick="test()">태그 달린다?</h6>
+
+            </ul>
+            <ul id="playList-2">
+                <h5>완전 편안한 플레이 리스트</h5>
+                    <li>엄청 편한 노래1 </li>
+                    <li>엄청 편한 노래2 </li>
+                    <li>엄청 편한 노래3 </li>
+                    <li>엄청 편한 노래4 </li>
+                    <li>엄청 편한 노래5 </li>
+                <h6>태그 달린다?</h6>
+            </ul>
+            <ul id="playList-3">
+                <h5>완전 편안한 플레이 리스트</h5>
+                    <li>엄청 편한 노래1 </li>
+                    <li>엄청 편한 노래2 </li>
+                    <li>엄청 편한 노래3 </li>
+                    <li>엄청 편한 노래4 </li>
+                    <li>엄청 편한 노래5 </li>
+                <h6>태그 달린다?</h6>
+            </ul>
         </div>
     </div>
     <div class="box__face box__face--back">back</div>

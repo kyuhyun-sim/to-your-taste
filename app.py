@@ -1,19 +1,19 @@
-import re
-from flask import Flask, render_template, request, jsonify, redirect, url_for
 from pymongo import MongoClient
-from bs4 import BeautifulSoup
-import certifi
-ca = certifi.where()
-import requests
-app = Flask(__name__)
-
-from werkzeug.utils import secure_filename
-from datetime import datetime, timedelta
-
 import jwt
 import datetime
 import hashlib
+from flask import Flask, render_template, jsonify, request, redirect, url_for
+from werkzeug.utils import secure_filename
+from datetime import datetime, timedelta
+import re
+from bs4 import BeautifulSoup
+import certifi
+import requests
 
+
+
+app = Flask(__name__)
+ca = certifi.where()
 SECRET_KEY = 'SPARTA'
 
 app.config["TEMPLATES_AUTO_RELOAD"] = True

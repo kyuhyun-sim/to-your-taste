@@ -17,10 +17,9 @@
     <!-- myjs 불러오기-->
     <script src="{{ url_for('static', filename='myjs.js') }}"></script>
 
-    <title>임시 추가 페이지</title>
+    <title>To-your-tase-main</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
-    <title>Title</title>
      <style>
         * {
             font-family: 'Gowun Dodum', sans-serif;
@@ -137,54 +136,9 @@
                                                 <div class="card-body">
                                                     <h5 class="card-title">${title}</h5>
                                                     <p class="tag">${singer}</p>
-                                                    <p class="card-text"><section class="section">
-    <article class="media">
-        <div class="media-content">
-            <div class="field">
-                <p class="control">
-                    <input id="input-post" class="input is-rounded" placeholder="코멘트 달기"
-                           onclick='$("#modal-post").addClass("is-active")'></p>
-            </div>
-        </div>
-    </article>
-    <div class="modal" id="modal-post">
-        <div class="modal-background" onclick='$("#modal-post").removeClass("is-active")'></div>
-        <div class="modal-content">
-            <div class="box">
-                <article class="media">
-                    <div class="media-content">
-                        <div class="field">
-                            <p class="control">
-                                        <textarea id="textarea-post" class="textarea"
-                                                  placeholder="코멘트 달기"></textarea>
-                            </p>
-                        </div>
-                        <nav class="level is-mobile">
-                            <div class="level-left">
-
-                            </div>
-                            <div class="level-right">
-                                <div class="level-item">
-                                    <a class="button is-sparta" onclick="post()">등록</a>
-                                </div>
-                                <div class="level-item">
-                                    <a class="button is-sparta is-outlined"
-                                       onclick='$("#modal-post").removeClass("is-active")'>취소</a>
-                                </div>
-                            </div>
-                        </nav>
-                    </div>
-                </article>
-            </div>
-        </div>
-        <button class="modal-close is-large" aria-label="close"
-                onclick='$("#modal-post").removeClass("is-active")'></button>
-    </div>
-</section></p>
-                                                    <span id="likes" onclick="like_func(${number})">test</span>
                                                 </div>
                                             </div>
-                                        </div>`
+                                          </div>`
                         }else{
                             temp_html = `<div class="col">
                                             <div class="card h-100">
@@ -267,7 +221,7 @@
 </div>
 <div style="clear:both"></div>
 <div class="mytitle">
-    <h1>임시 플레이 리스트 추가 페이지</h1>
+    <h1>To-your-taste</h1>
     <button onclick="open_box()">리스트 추가 기록하기</button>
 </div>
 

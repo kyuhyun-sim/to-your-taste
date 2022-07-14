@@ -19,9 +19,8 @@ SECRET_KEY = 'SPARTA'
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 app.config['UPLOAD_FOLDER'] = "./static/profile_pics"
 
-client = MongoClient('mongodb+srv://test:sparta@cluster0.myx5l74.mongodb.net/Cluster0?retryWrites=true&w=majority')
-db = client.test1
-
+client = MongoClient('mongodb+srv://test:sparta@cluster0.ehdakrl.mongodb.net/?retryWrites=true&w=majority',tlsCAFile=ca)
+db = client.dbsparta
 
 
 

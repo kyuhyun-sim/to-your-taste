@@ -60,12 +60,18 @@ def movie_post():
         number = number + 1
         image = "http:" + setSelect.select_one(f'tr:nth-child({i}) > td:nth-child(3) > a > img').get("src")
         title = no_space(setTitle)
+        setSong = soup.select_one(
+            f'#body-content > div.songlist-box > div.music-list-wrap > table > tbody > tr:nth-child({i}) > td:nth-child(3) > a')
+        test = setSong['onclick']
+        songUrl = re.sub(r'[^0-9]', '', test)
+        url = 'https://www.genie.co.kr/detail/albumInfo?axnm=' + songUrl
 
         doc = {
             'title': title,
             'singer': singer,
             'number': number,
             'image': image,
+            'setUrl': url,
             'like': 0
         }
 
@@ -270,6 +276,7 @@ def get_posts():
             post["count_heart"] = db.likes.count_documents({"post_id": post["_id"], "type": "heart"})
             post["heart_by_me"] = bool(
                 db.likes.find_one({"post_id": post["_id"], "type": "heart", "username": payload['id']}))
+
         return jsonify({"result": "success", "msg": "포스팅을 가져왔습니다.", "posts": posts})
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("home"))

@@ -60,12 +60,18 @@ def movie_post():
         number = number + 1
         image = "http:" + setSelect.select_one(f'tr:nth-child({i}) > td:nth-child(3) > a > img').get("src")
         title = no_space(setTitle)
+        setSong = soup.select_one(
+            f'#body-content > div.songlist-box > div.music-list-wrap > table > tbody > tr:nth-child({i}) > td:nth-child(3) > a')
+        test = setSong['onclick']
+        songUrl = re.sub(r'[^0-9]', '', test)
+        url = 'https://www.genie.co.kr/detail/albumInfo?axnm=' + songUrl
 
         doc = {
             'title': title,
             'singer': singer,
             'number': number,
             'image': image,
+            'setUrl': url,
             'like': 0
         }
 

@@ -19,8 +19,8 @@ SECRET_KEY = 'SPARTA'
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 app.config['UPLOAD_FOLDER'] = "./static/profile_pics"
 
-client = MongoClient('mongodb+srv://test:sparta@cluster0.ehdakrl.mongodb.net/?retryWrites=true&w=majority',tlsCAFile=ca)
-db = client.dbsparta
+client = MongoClient('mongodb+srv://test:sparta@cluster0.myx5l74.mongodb.net/Cluster0?retryWrites=true&w=majority')
+db = client.test1
 
 
 
@@ -301,6 +301,8 @@ def update_like():
             db.likes.insert_one(doc)
         else:
             db.likes.delete_one(doc)
+        count = db.likes.count_documents({"post_id": post_id_receive, "type": type_receive})
+        print(count)
         return jsonify({"result": "success", 'msg': 'updated', "count": count})
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("home"))

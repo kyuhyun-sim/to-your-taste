@@ -159,6 +159,7 @@
             } else {
                 $("#help-password2").text("비밀번호가 일치합니다.").removeClass("is-danger").addClass("is-success")
             }
+
             $.ajax({
                 type: "POST",
                 url: "/sign_up/save",
@@ -236,14 +237,14 @@
         }
 
         function check_dup2() {
-            let profilename = $("#input-profile-name").val()
-            console.log(profilename)
-            if (profilename == "") {
+            let profile_name = $("#input-profile-name").val()
+            console.log(profile_name)
+            if (profile_name == "") {
                 $("#help-nick").text("닉네임을 입력해주세요.").removeClass("is-safe").addClass("is-danger")
                 $("#input-profile-name").focus()
                 return;
             }
-            if (!is_profile_name(profilename)) {
+            if (!is_profile_name(profile_name)) {
                 $("#help-nick").text("닉네임의 형식을 확인해주세요. 2-10자 길이").removeClass("is-safe").addClass("is-danger")
                 $("#input-profile-name").focus()
                 return;
@@ -253,7 +254,7 @@
                 type: "POST",
                 url: "/sign_up/check_dup2",
                 data: {
-                    profile_name_give: profilename
+                    profile_name_give: profile_name
                 },
                 success: function (response) {
 

@@ -20,25 +20,34 @@
     <title>To-your-tase-main</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
-     <style>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
+
+    <style>
         * {
             font-family: 'Gowun Dodum', sans-serif;
         }
 
+        body{
+            padding-top: 0px }
+
         .mytitle {
             width: 100%;
-            height: 250px;
+            height: 320px;
 
-            background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://t2.genius.com/unsafe/409x409/https%3A%2F%2Fimages.genius.com%2Fbdf0afb6734bd86ba04615592145dec1.1000x1000x1.jpg');
-            background-position: center;
+            background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.pexels.com/photos/4947406/pexels-photo-4947406.jpeg');
+            background-position: center 65%;
             background-size: cover;
-
             color: white;
 
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+        }
+
+        .mytitle > h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 25px;
         }
 
         .mytitle > button {
@@ -52,6 +61,7 @@
             border: 1px solid white;
 
             margin-top: 10px;
+            margin-bottom: 10px;
         }
 
         .mytitle > button:hover {
@@ -207,6 +217,13 @@
     </script>
 </head>
 <body>
+
+<div style="clear:both"></div>
+<div class="mytitle">
+    <h1>To-your-taste</h1>
+    <button onclick="open_box()">리스트 추가 기록하기</button>
+</div>
+
 <div class="my-header">
     <h2>    <!-- 유저 프로필 -->
 <div class="tabs is-right">
@@ -219,13 +236,6 @@
   </ul>
 </div></h2>
 </div>
-<div style="clear:both"></div>
-<div class="mytitle">
-    <h1>To-your-taste</h1>
-    <button onclick="open_box()">리스트 추가 기록하기</button>
-</div>
-
-
 
 
 <div class="mypost" id="post-box">
